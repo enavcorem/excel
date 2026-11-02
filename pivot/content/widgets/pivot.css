@@ -1,0 +1,282 @@
+/* ===== עיצוב הבלוקים של לומדת פיבוט מתקדם =====
+   לא חלק מהמנוע. טוקני הצבע של הקורס כאן, לפי העיקרון של css/tokens.css:
+   אין צבעים חד-פעמיים בתוך רכיבים.
+   החלק הראשון הועתק מלומדת ארגז הכלים (func.css): גיליון, כרטיס, צעדים, צילום.
+   בסוף: כפתור ההורדה (כמו ב-XLOOKUP) והווידג'ט pivot-demo. */
+
+:root {
+  /* צבעי הארגומנטים — הראשון, השני, השלישי והרביעי */
+  --fn-a1: #2F6FC4;  --fn-a1-bg: #E8F1FC;
+  --fn-a2: #B86400;  --fn-a2-bg: #FFF3E0;
+  --fn-a3: #0F8A67;  --fn-a3-bg: #E4F7F1;
+  --fn-a4: #8E44AD;  --fn-a4-bg: #F4ECF8;
+
+  /* הגיליון */
+  --fn-grid: #D4D4DE;
+  --fn-grid-head: #F0F0F5;
+  --fn-mark-result: #FFF2A8;
+  --fn-mark-result-line: #E0B800;
+  --fn-mark-input: #E8F1FC;
+  --fn-mark-range: #E4F7F1;
+  --fn-mark-bad: #FDEDEE;
+  --fn-mono: Consolas, "Courier New", monospace;
+}
+
+/* ---------- צבעי ארגומנטים ---------- */
+.fn-a1 { color: var(--fn-a1); background: var(--fn-a1-bg); border-radius: 5px; padding: 0 4px; }
+.fn-a2 { color: var(--fn-a2); background: var(--fn-a2-bg); border-radius: 5px; padding: 0 4px; }
+.fn-a3 { color: var(--fn-a3); background: var(--fn-a3-bg); border-radius: 5px; padding: 0 4px; }
+.fn-a4 { color: var(--fn-a4); background: var(--fn-a4-bg); border-radius: 5px; padding: 0 4px; }
+
+/* ---------- כרטיס פונקציה ---------- */
+.fn-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-inline-start: 6px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+.fn-card-name {
+  direction: ltr;
+  text-align: right;
+  font-family: var(--fn-mono);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+.fn-card-what { font-size: 1.05rem; margin-top: var(--space-1); }
+.fn-card-when { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
+.fn-card-label { font-weight: 700; color: var(--text-muted); }
+.fn-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 2px 12px;
+  font-size: 0.95rem;
+}
+.fn-card-syntax {
+  direction: ltr;
+  text-align: center;
+  font-family: var(--fn-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-2);
+  margin-top: var(--space-3);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.fn-card-args { margin: var(--space-3) 0 0; padding-inline-start: var(--space-4); }
+.fn-card-args li { margin-bottom: var(--space-1); }
+.fn-arg-name { font-family: var(--fn-mono); font-weight: 700; direction: ltr; display: inline-block; }
+.fn-card-note { margin-top: var(--space-3); color: var(--text-muted); font-size: 0.95rem; }
+
+/* ---------- גיליון ---------- */
+.fn-formula-bar {
+  display: flex;
+  align-items: stretch;
+  direction: ltr;
+  border: 1px solid var(--fn-grid);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--card-bg);
+  font-family: var(--fn-mono);
+  overflow-x: auto;
+}
+.fn-namebox { padding: 6px 10px; border-right: 1px solid var(--fn-grid); min-width: 3.5em; text-align: center; color: var(--text-muted); }
+.fn-fx { padding: 6px 10px; border-right: 1px solid var(--fn-grid); font-style: italic; color: var(--text-muted); }
+.fn-formula-text { padding: 6px 10px; white-space: nowrap; font-weight: 700; }
+.fn-sheet-scroll { overflow-x: auto; }
+.fn-sheet {
+  border-collapse: collapse;
+  width: 100%;
+  direction: rtl;
+  background: var(--card-bg);
+  font-size: 0.95rem;
+}
+.fn-sheet th {
+  background: var(--fn-grid-head);
+  color: var(--text-muted);
+  font-weight: 500;
+  border: 1px solid var(--fn-grid);
+  padding: 3px 6px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.fn-sheet .fn-corner { width: 2.2em; }
+.fn-cell { border: 1px solid var(--fn-grid); padding: 5px 8px; text-align: right; white-space: nowrap; }
+.fn-cell.fn-num { text-align: left; direction: ltr; }
+.fn-cell.fn-head { font-weight: 700; }
+.fn-cell.m-result { background: var(--fn-mark-result); outline: 2px solid var(--fn-mark-result-line); outline-offset: -2px; font-weight: 700; }
+.fn-cell.m-input { background: var(--fn-mark-input); }
+.fn-cell.m-range { background: var(--fn-mark-range); }
+.fn-cell.m-bad { background: var(--fn-mark-bad); color: var(--danger); font-weight: 700; }
+.fn-sheet-caption { margin-top: var(--space-2); color: var(--text-muted); font-size: 0.95rem; }
+
+@media (max-width: 480px) {
+  .fn-card-name { font-size: 1.3rem; }
+  .fn-card-syntax { font-size: 0.92rem; }
+  .fn-sheet { font-size: 0.85rem; }
+}
+
+/* ---------- רביזיה 12.10: למה / איפה נכשלים / צעדים / צילומים / טיוב ---------- */
+:root {
+  --fn-mark-fix: #FFF176;        /* הצהוב של "בתהליך טיוב" */
+  --fn-mark-fix-line: #E6C200;
+  --fn-step-num: var(--color-primary);
+}
+.fn-card-why { font-size: 1.05rem; margin-top: var(--space-2); }
+.fn-card-why + .fn-card-what { margin-top: var(--space-1); }
+.fn-card-fails { margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border); }
+.fn-card-fails ul { margin: var(--space-1) 0 0; padding-inline-start: var(--space-4); }
+.fn-card-fails li { margin-bottom: 2px; }
+
+.fn-cell.m-fix { background: var(--fn-mark-fix); outline: 1px solid var(--fn-mark-fix-line); outline-offset: -1px; }
+.fn-cell.fn-wrap { white-space: normal; min-width: 11em; max-width: 18em; font-size: 0.9em; line-height: 1.35; }
+
+.fn-steps {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.fn-steps-title { font-weight: 800; margin-bottom: var(--space-2); }
+.fn-steps-list { list-style: none; counter-reset: fnstep; margin: 0; padding: 0; }
+.fn-steps-list > li {
+  counter-increment: fnstep;
+  position: relative;
+  padding-inline-start: 2.4em;
+  margin-bottom: var(--space-3);
+  min-height: 1.8em;
+}
+.fn-steps-list > li::before {
+  content: counter(fnstep);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--fn-step-num);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fn-step-text { padding-top: 0.15em; }
+
+.fn-shot { margin: 0; }
+.fn-shot img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.fn-shot-small img { max-width: min(100%, 460px); }
+.fn-steps .fn-shot { margin-top: var(--space-2); }
+.fn-shot figcaption { margin-top: var(--space-2); color: var(--text-muted); font-size: 0.95rem; }
+.fn-shot-missing {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg);
+}
+
+/* * ו-^ בנוסחאות: גדולים, עבים ובאמצע השורה (operators.js) */
+.fn-op {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 0.08em;
+}
+
+/* ---------- כפתור הורדה לתחנה (כמו ב-XLOOKUP) ---------- */
+:root {
+  --pv-accent: #12A47B;
+  --pv-accent-bg: #E4F7F1;
+}
+.pv-download-btn {
+  display: flex; align-items: center; gap: var(--space-3);
+  text-decoration: none; padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--pv-accent); border-radius: var(--radius-md);
+  background: var(--pv-accent-bg); color: var(--text);
+  transition: transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+.pv-download-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.pv-download-icon { font-size: 1.7rem; flex: 0 0 auto; }
+.pv-download-text { display: flex; flex-direction: column; min-width: 0; }
+.pv-download-label { font-weight: 700; color: var(--pv-accent); }
+.pv-download-note { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ---------- pivot-demo: טבלת ציר חיה ---------- */
+:root {
+  --pv-grid: #C9D3E0;
+  --pv-head-bg: #DCE6F1;      /* הכחול-אפור של כותרות פיבוט באקסל */
+  --pv-tot-bg: #EEF3F8;
+  --pv-100: #0F8A67;          /* איפה יושב השלם */
+  --pv-100-bg: #DDF5EC;
+  --pv-part: #2F6FC4;         /* התא שנבחר: החלק */
+  --pv-part-bg: #E1EDFC;
+  --pv-whole: #B86400;        /* השלם שמחלקים בו */
+  --pv-whole-bg: #FFE9CC;
+  --pv-bad: #C0392B;
+  --pv-bad-bg: #FDEDEE;
+}
+.pv-demo {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+.pv-demo-title { font-weight: 800; margin-bottom: var(--space-2); }
+.pv-demo-views { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.pv-demo-view {
+  font: inherit;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.pv-demo-view.is-on { border-color: var(--color-primary); background: var(--color-primary); color: #fff; }
+.pv-demo-question { margin-bottom: var(--space-2); font-size: 1.02rem; }
+.pv-100-key { color: var(--pv-100); background: var(--pv-100-bg); font-weight: 800; padding: 0 6px; border-radius: 4px; direction: ltr; display: inline-block; }
+.pv-demo-scroll { overflow-x: auto; }
+.pv-demo-table { border-collapse: collapse; direction: rtl; min-width: 100%; font-size: 1rem; }
+.pv-demo-narrow { min-width: 0; }
+.pv-demo-table th, .pv-demo-table td { border: 1px solid var(--pv-grid); padding: 6px 10px; white-space: nowrap; }
+.pv-demo-table thead th { background: var(--pv-head-bg); font-weight: 700; text-align: right; }
+.pv-demo-table .pv-blank { background: var(--pv-head-bg); }
+.pv-demo-table th.pv-key { text-align: right; font-weight: 700; background: var(--card-bg); }
+.pv-demo-table thead th.pv-key { background: var(--pv-head-bg); }
+.pv-demo-table .pv-num { text-align: left; direction: ltr; font-variant-numeric: tabular-nums; cursor: pointer; }
+.pv-demo-table .pv-num:hover { outline: 2px solid var(--pv-part); outline-offset: -2px; }
+.pv-demo-table .pv-tot, .pv-demo-table .pv-tot-row td, .pv-demo-table .pv-tot-row th { background: var(--pv-tot-bg); font-weight: 800; }
+.pv-demo-table td.is-100 { background: var(--pv-100-bg); color: var(--pv-100); font-weight: 800; }
+.pv-demo-table td.is-part { background: var(--pv-part-bg); outline: 3px solid var(--pv-part); outline-offset: -3px; }
+.pv-demo-table td.is-whole { background: var(--pv-whole-bg); outline: 3px solid var(--pv-whole); outline-offset: -3px; }
+.pv-demo-table td.pv-neg { color: var(--pv-bad); }
+.pv-demo-table .pv-group-row th, .pv-demo-table .pv-group-row td { font-weight: 800; }
+.pv-demo-table .pv-sub-row th { padding-inline-start: 2em; font-weight: 500; }
+.pv-demo-table .pv-broken-row th, .pv-demo-table .pv-broken-row td { background: var(--pv-bad-bg); }
+.pv-date { direction: ltr; display: block; text-align: left; font-weight: 500; }
+.pv-text-date { display: block; text-align: right; color: var(--pv-bad); font-weight: 700; }
+.pv-demo-narration { margin-top: var(--space-3); min-height: 2.6em; line-height: 1.6; }
+.pv-part { color: var(--pv-part); background: var(--pv-part-bg); font-weight: 800; padding: 0 5px; border-radius: 4px; }
+.pv-whole { color: var(--pv-whole); background: var(--pv-whole-bg); font-weight: 800; padding: 0 5px; border-radius: 4px; }
+.pv-calc { display: inline-block; font-family: var(--fn-mono); font-weight: 700; margin-inline-start: 0.4em; }
+.pv-bad-text { color: var(--pv-bad); }
+.pv-demo-actions { margin-top: var(--space-2); }
+@keyframes pv-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.pv-shake { animation: pv-shake 0.25s 2; }
+@media (prefers-reduced-motion: reduce) { .pv-shake { animation: none; } }
+@media (max-width: 480px) { .pv-demo-table { font-size: 0.88rem; } .pv-demo-table th, .pv-demo-table td { padding: 4px 6px; } }

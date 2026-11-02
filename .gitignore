@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+node_modules/
+*.log
+~$*
+CLAUDE.md
+__pycache__/
+
+# הבונה של קובצי התרגול: יש בו נוסחאות פתרון ותשובות לדוגמה. נשאר רק במחשב.
+_xlsx/
