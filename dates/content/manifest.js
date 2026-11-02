@@ -54,6 +54,8 @@ export const CHAPTERS = [
     units: [
       { id: 'dt-ch2-u1', title: 'קיבוץ לשנים, רבעונים וחודשים', type: 'lesson', icon: '📦', estMinutes: 7, modulePath: 'ch2/ch2-u1-grouping.js' },
       { id: 'dt-ch2-u2', title: 'תאריך אחד שבור חוסם הכול', type: 'lesson', icon: '🚧', estMinutes: 5, modulePath: 'ch2/ch2-u2-blocked.js' },
+      // 2.11: בקשת המורה, אפשרויות הסינון לפי שנים בפיבוט.
+      { id: 'dt-ch2-filter', title: 'לסנן לפי שנה', type: 'lesson', icon: '🗓️', estMinutes: 6, modulePath: 'ch2/ch2-u4-year-filter.js' },
       { id: 'dt-ch2-u3', title: 'השוואה בין שנים: % הפרש מ...', type: 'lesson', icon: '↕️', estMinutes: 8, modulePath: 'ch2/ch2-u3-diff-from.js' },
       { id: 'dt-ch2-lab', title: 'תחנה 2: מתי לפרסם?', type: 'lab', icon: '⏰', estMinutes: 15, modulePath: 'ch2/ch2-lab-when-to-post.js' },
       { id: 'dt-ch2-quiz', title: 'מבחן מסכם: תאריכים בפיבוט', type: 'quiz', icon: '🏆', estMinutes: 8, modulePath: 'ch2/ch2-quiz.js', isGrandFinale: true },

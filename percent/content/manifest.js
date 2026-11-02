@@ -15,10 +15,10 @@ export const COURSE = {
   title: 'אחוזים',
   icon: '🧮',
   welcome: {
-    f: 'ברוכה הבאה ללומדת האחוזים! הנחה, שינוי, חלק יחסי, ואחוזים בפיבוט 🧮',
-    m: 'ברוך הבא ללומדת האחוזים! הנחה, שינוי, חלק יחסי, ואחוזים בפיבוט 🧮',
+    f: 'ברוכה הבאה ללומדת האחוזים! רענון קצר, ואז אחוזים בפיבוט 🧮',
+    m: 'ברוך הבא ללומדת האחוזים! רענון קצר, ואז אחוזים בפיבוט 🧮',
   },
-  finaleText: 'סיימת את לומדת האחוזים. הנחה, שינוי, חלק יחסי ו"הצג ערכים כ" בכיס 🧮',
+  finaleText: 'סיימת את לומדת האחוזים. "הצג ערכים כ" בכיס 🧮',
   teacherTitle: '🧮 לוח מורה — אחוזים',
 
   // מצב כיתה, כמו ב-XLOOKUP: ?class=1 על מחשב המורה פותח את כל היחידות
@@ -43,8 +43,10 @@ export const CHAPTERS = [
     // { id: 'pc-ch1-u3', title: 'שינוי באחוזים, ומע"מ', type: 'lesson', icon: '📈', estMinutes: 7, modulePath: 'ch1/ch1-u3-change.js' },
     // { id: 'pc-ch1-u4', title: 'חלק יחסי באקסל', type: 'lesson', icon: '🧩', estMinutes: 7, modulePath: 'ch1/ch1-u4-share-excel.js' },
     // { id: 'pc-ch1-lab', title: 'תחנה 1: מבצע בסופר', type: 'lab', icon: '🛒', estMinutes: 15, modulePath: 'ch1/ch1-lab-supermarket.js' },
+    // 2.11: בקשת המורה. תקציר המצגת בתוך הלומדה (עם דף החישוב והסרטונים כרשות), ואז המבחנון.
     units: [
-      { id: 'pc-ch1-quiz', title: 'מבחן פרק: אחוזים', type: 'quiz', icon: '📝', estMinutes: 7, modulePath: 'ch1/ch1-quiz.js' },
+      { id: 'pc-ch1-slides', title: 'המצגת בקצרה', type: 'lesson', icon: '📽️', estMinutes: 6, modulePath: 'ch1/ch1-u0-slides.js' },
+      { id: 'pc-ch1-quiz', title: 'מבחנון: אחוזים', type: 'quiz', icon: '📝', estMinutes: 7, modulePath: 'ch1/ch1-quiz.js' },
     ],
   },
   {
