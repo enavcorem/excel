@@ -21,3 +21,14 @@ export const GELATO = {
   ],
   unit: '₪',
 };
+
+// 4.11: אותם נתונים, הפוך — הסניף בשורות והטעם בעמודות (המוקש של נועה ב-u2).
+// בדיקה: לימון באילת, % שורה = 9,000 / 14,000 = 64.29% (התשובה), % עמודה = 9,000 / 12,000 = 75% (הטעות).
+export const GELATO_FLIPPED = {
+  ...GELATO,
+  rowsLabel: 'סניף',
+  colsLabel: 'טעם',
+  rowKeys: GELATO.colKeys,
+  colKeys: GELATO.rowKeys,
+  values: GELATO.colKeys.map((_, j) => GELATO.values.map(row => row[j])),
+};

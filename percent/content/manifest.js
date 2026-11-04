@@ -44,8 +44,9 @@ export const CHAPTERS = [
     // { id: 'pc-ch1-u4', title: 'חלק יחסי באקסל', type: 'lesson', icon: '🧩', estMinutes: 7, modulePath: 'ch1/ch1-u4-share-excel.js' },
     // { id: 'pc-ch1-lab', title: 'תחנה 1: מבצע בסופר', type: 'lab', icon: '🛒', estMinutes: 15, modulePath: 'ch1/ch1-lab-supermarket.js' },
     // 2.11: בקשת המורה. תקציר המצגת בתוך הלומדה (עם דף החישוב והסרטונים כרשות), ואז המבחנון.
+    // 4.11: התקציר ירד. ביחידה נשארו רק דף החישוב והסרטונים (אותו id).
     units: [
-      { id: 'pc-ch1-slides', title: 'המצגת בקצרה', type: 'lesson', icon: '📽️', estMinutes: 6, modulePath: 'ch1/ch1-u0-slides.js' },
+      { id: 'pc-ch1-slides', title: 'דף החישוב והסרטונים', type: 'lesson', icon: '📗', estMinutes: 15, modulePath: 'ch1/ch1-u0-slides.js' },
       { id: 'pc-ch1-quiz', title: 'מבחנון: אחוזים', type: 'quiz', icon: '📝', estMinutes: 7, modulePath: 'ch1/ch1-quiz.js' },
     ],
   },
@@ -55,12 +56,18 @@ export const CHAPTERS = [
     title: 'אחוזים בפיבוט',
     icon: '🥧',
     colorVar: 'chapter-2',
+    // 4.11: בקשת המורה, "חסר הלמה". נוספה יחידת פתיחה (קליעות, הרבה שורות, שלוש מנהלות ברשת
+    // הגלידה). ביחידות 1–3 לכל מנהלת שורת "למה". ב-3 נוסף סיכום הפיצה. בלי הפניות למצגת.
+    // מסחר מודרני (דף העבודה של המורה) מופיע רק בתחנה 2: הקדמה, בחירת תצוגה, ואז מספרים מהאקסל.
+    // אינסטגרם הפכה לאתגר ⭐ (bonus, לא חוסם את המבחן).
     units: [
+      { id: 'pc-ch2-u0', title: 'למה אחוזים, ולמה פיבוט?', type: 'lesson', icon: '🏀', estMinutes: 5, modulePath: 'ch2/ch2-u0-why.js' },
       { id: 'pc-ch2-u1', title: 'מסכומים לאחוזים', type: 'lesson', icon: '🥧', estMinutes: 6, modulePath: 'ch2/ch2-u1-of-total.js' },
       { id: 'pc-ch2-u2', title: 'איפה ה-100%?', type: 'lesson', icon: '🎯', estMinutes: 7, modulePath: 'ch2/ch2-u2-column-row.js' },
-      { id: 'pc-ch2-u3', title: 'איזה אחוז עונה על השאלה?', type: 'lesson', icon: '❓', estMinutes: 7, modulePath: 'ch2/ch2-u3-which-percent.js' },
+      { id: 'pc-ch2-u3', title: 'איזה אחוז עונה על השאלה?', type: 'lesson', icon: '❓', estMinutes: 8, modulePath: 'ch2/ch2-u3-which-percent.js' },
       { id: 'pc-ch2-u4', title: 'אחוז מכמות או אחוז מכסף', type: 'lesson', icon: '💰', estMinutes: 5, modulePath: 'ch2/ch2-u4-count-vs-money.js' },
-      { id: 'pc-ch2-lab', title: 'תחנה 2: מי מנצח באינסטגרם', type: 'lab', icon: '📸', estMinutes: 15, modulePath: 'ch2/ch2-lab-instagram.js' },
+      { id: 'pc-ch2-sales', title: 'תחנה 2: מסחר מודרני', type: 'lab', icon: '🛍️', estMinutes: 25, modulePath: 'ch2/ch2-lab-sales.js' },
+      { id: 'pc-ch2-lab', title: 'אתגר ⭐ מי מנצח באינסטגרם', type: 'bonus', icon: '📸', estMinutes: 15, modulePath: 'ch2/ch2-lab-instagram.js' },
       { id: 'pc-ch2-quiz', title: 'מבחן מסכם: אחוזים בפיבוט', type: 'quiz', icon: '🏆', estMinutes: 8, modulePath: 'ch2/ch2-quiz.js', isGrandFinale: true },
     ],
   },
