@@ -29,10 +29,11 @@
 //    }
 //
 // 3. mode: 'years' — השוואה בין שנים. החודשים (או הרבעונים) בשורות, השנים
-//    בעמודות. כפתורים: סכום / % הפרש מ... (השנה הקודמת). השנה הראשונה ריקה —
-//    אין לה "קודם". לחיצה על תא מראה (חדש − ישן) ÷ ישן.
+//    בעמודות, בטבלה רגילה. כפתורים: סכום / % הפרש מ... (השנה הקודמת).
+//    views: ['sum'] (רשות) — רק התצוגות שנלמדו; אם יש אחת, אין כפתורים. start: 'sum' | 'diff' (רשות).
+//    בשנה הראשונה (בסיס) מופיע "—": אין לה "קודם". לחיצה על תא מראה (חדש − ישן) ÷ ישן.
 //    { type: 'pivot-demo', mode: 'years', valueLabel: 'הזמנות', by: 'quarters' | 'months',
-//      records: [['2025-01-14', 320], ...] }
+//      records: [['2025-01-14', 320], ...], views: ['sum'] }
 //
 // הכותרות והשמות כמו באקסל בעברית: "תוויות שורה", "סכום כולל", "סכום של ...",
 // חודשים ינו–דצמ, רבעונים "רבע1". צבעים — רק מחלקות, הטוקנים ב-pivot.css.
@@ -369,10 +370,15 @@ function renderDates(block, wrap) {
 // 3. השוואה בין שנים: % הפרש מ...
 // =====================================================================
 function renderYears(block, wrap) {
-  const { valueLabel = 'ערך', records = [], by = 'quarters', unit = '' } = block;
-  let view = 'sum';
+  // 7.11: טבלה רגילה (שורת כותרת אחת), ו-views נכבד. בלי views נראים שני הכפתורים (כמו קודם).
+  const { valueLabel = 'ערך', records = [], by = 'quarters', unit = '', views = ['sum', 'diff'] } = block;
+  const VIEWS = { sum: 'סכום', diff: '% הפרש מ... (הקודם)' };
+  let view = views.includes(block.start) ? block.start : views[0];
   let picked = null;
-  const setOn = buttons(wrap, [['sum', 'סכום'], ['diff', '% הפרש מ... (הקודם)']], (k) => { view = k; picked = null; draw(); });
+  // כפתור לתצוגה שעוד לא נלמדה לא מופיע: כשיש תצוגה אחת, אין כפתורים בכלל
+  const setOn = views.length > 1
+    ? buttons(wrap, views.map((k) => [k, VIEWS[k]]), (k) => { view = k; picked = null; draw(); })
+    : () => {};
 
   const recs = records.map(([d, val]) => ({ p: parseIso(d), val: +val || 0 })).filter((r) => r.p);
   const years = [...new Set(recs.map((r) => r.p.y))].sort();
@@ -394,7 +400,7 @@ function renderYears(block, wrap) {
     let text;
     let cls = 'pv-num' + (k === 'T' || yi === 'T' ? ' pv-tot' : '');
     if (view === 'sum') text = fmtNum(sum(k, y), unit);
-    else if (yi === 'T' || yi === 0) { text = ''; cls += ' pv-empty'; }
+    else if (yi === 0) { text = '—'; cls += ' pv-empty'; }   // שנת הבסיס: אין "קודם"
     else {
       const prev = sum(k, years[yi - 1]);
       const cur = sum(k, y);
@@ -418,8 +424,7 @@ function renderYears(block, wrap) {
       narration.innerHTML = `<b>${esc(rowName)} · ${yi === 'T' ? 'סכום כולל' : years[yi]}:</b> ${fmtNum(sum(k, yi === 'T' ? 'T' : years[yi]), unit)}.`;
       return;
     }
-    if (yi === 'T') { narration.innerHTML = 'בעמודת הסכום הכולל אין "שנה קודמת", ולכן היא ריקה.'; return; }
-    if (yi === 0) { narration.innerHTML = `${years[0]} היא השנה הראשונה. אין לה שנה קודמת להשוות אליה, ולכן התא ריק. זה לא שגיאה.`; return; }
+    if (yi === 0) { narration.innerHTML = `${years[0]} היא שנת הבסיס. אין לה שנה קודמת להשוות אליה, ולכן אין בה אחוז. זה לא שגיאה.`; return; }
     const prev = sum(k, years[yi - 1]);
     const cur = sum(k, years[yi]);
     narration.innerHTML = `<b>${esc(rowName)}:</b> ב-${years[yi]} <span class="pv-part">${fmtNum(cur)}</span>,
@@ -431,30 +436,25 @@ function renderYears(block, wrap) {
     setOn(view);
     table.innerHTML = '';
     const thead = el('thead');
-    const tr1 = el('tr');
-    tr1.appendChild(el('th', 'pv-corner', `סכום של ${esc(valueLabel)}`));
-    tr1.appendChild(el('th', 'pv-collabel', 'תוויות עמודה (שנים)'));
-    for (let j = 1; j <= years.length; j++) tr1.appendChild(el('th', 'pv-blank'));
-    thead.appendChild(tr1);
-    const tr2 = el('tr');
-    tr2.appendChild(el('th', 'pv-rowlabel', `תוויות שורה (${by === 'months' ? 'חודשים' : 'רבעונים'})`));
-    years.forEach((y) => tr2.appendChild(el('th', 'pv-key', String(y))));
-    tr2.appendChild(el('th', 'pv-key pv-tot', 'סכום כולל'));
-    thead.appendChild(tr2);
+    const tr = el('tr');
+    tr.appendChild(el('th', 'pv-corner', `${by === 'months' ? 'חודש' : 'רבעון'} · ${esc(valueLabel)}${view === 'diff' ? ' (% הפרש)' : ''}`));
+    years.forEach((y) => tr.appendChild(el('th', 'pv-key', String(y))));
+    if (view === 'sum') tr.appendChild(el('th', 'pv-key pv-tot', 'סכום כולל'));   // ב"% הפרש" אין סכום כולל לשנה
+    thead.appendChild(tr);
     table.appendChild(thead);
     const tbody = el('tbody');
     [...keys, 'T'].forEach((k) => {
-      const tr = el('tr', k === 'T' ? 'pv-tot-row' : '');
-      tr.appendChild(el('th', 'pv-key' + (k === 'T' ? ' pv-tot' : ''), esc(k === 'T' ? 'סכום כולל' : nameOf(k))));
-      years.forEach((_, yi) => tr.appendChild(cell(k, yi)));
-      tr.appendChild(cell(k, 'T'));
-      tbody.appendChild(tr);
+      const trw = el('tr', k === 'T' ? 'pv-tot-row' : '');
+      trw.appendChild(el('th', 'pv-key' + (k === 'T' ? ' pv-tot' : ''), esc(k === 'T' ? 'סכום כולל' : nameOf(k))));
+      years.forEach((_, yi) => trw.appendChild(cell(k, yi)));
+      if (view === 'sum') trw.appendChild(cell(k, 'T'));
+      tbody.appendChild(trw);
     });
     table.appendChild(tbody);
     if (!picked) {
       narration.innerHTML = view === 'sum'
-        ? 'סכומים לכל שנה. כדי לראות בכמה אחוז השתנה כל רבעון, עברו ל"% הפרש מ...".'
-        : 'כל תא משווה לאותו רבעון בשנה הקודמת. לחצו על תא כדי לראות את החישוב.';
+        ? 'סכומים לכל שנה, לכל רבעון.'
+        : `כל תא משווה לאותו רבעון בשנה הקודמת. ${years[0]} היא שנת הבסיס: אין לה שנה קודמת, ולכן מופיע בה — (באקסל התאים שם ריקים). לחצו על תא כדי לראות את החישוב.`;
     }
   }
   draw();

@@ -67,10 +67,10 @@ export function renderSheet(block) {
       if (marks[addr]) cls.push('m-' + marks[addr]);
       if (block.wrap && block.wrap.includes(colLetter(c))) cls.push('fn-wrap');
       let v = String(row[c] ?? '');
-      // מספרים מיושרים לשמאל וטקסט לימין, כמו באקסל. זה גם רמז חשוב:
-      // "מספר" שמיושר לימין הוא בעצם טקסט.
+      // גיליון RTL: מספר ותאריך אמיתי לימין, טקסט לועזי לשמאל (נבדק בצילום 7.11). זה גם רמז:
+      // "תאריך" שמיושר לשמאל הוא בעצם טקסט.
       // תאריך (03/09/2026), שעה (14:30), אחוז (10%) ומספר עם פסיק אלפים (1,250)
-      // הם מספרים באקסל, ולכן גם הם לשמאל.
+      // הם מספרים באקסל, ולכן גם הם לימין.
       // בלומדת הפיבוט: תא שמתחיל ב-' הוא טקסט (כמו באקסל), וה-' לא מוצג.
       // כך מראים "תאריך ששמור כטקסט": '05/03/2026 מוצג מימין.
       const forcedText = v.startsWith("'");
@@ -79,9 +79,13 @@ export function renderSheet(block) {
       const isNum = !forcedText && t !== '' && (
         !isNaN(Number(t.replace(/,/g, '')))
         || /^-?[\d,]+(\.\d+)?\s?[%₪]$/.test(t)
-        || /^\d{1,2}\/\d{1,2}\/\d{4}( \d{1,2}:\d{2})?$/.test(t)
+        || /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}( \d{1,2}:\d{2})?$/.test(t)
         || /^\d{1,2}:\d{2}(:\d{2})?$/.test(t));
       if (isNum && !(block.header && r === 0)) cls.push('fn-num');
+      // 7.11: נבדק בצילום מאקסל בעברית (גיליון RTL): מספר ותאריך נצמדים לימין,
+      // טקסט בלי אותיות עבריות (למשל '05.01.2025 או YEAR) נצמד לשמאל, TRUE/FALSE ושגיאות במרכז.
+      else if (/^(TRUE|FALSE|#[A-Z0-9/!?]+)$/.test(t)) cls.push('fn-center');
+      else if (t !== '' && !/[֐-׿]/.test(t)) cls.push('fn-latin');
       tr.appendChild(el('td', cls.join(' '), esc(v)));
     }
     tbody.appendChild(tr);

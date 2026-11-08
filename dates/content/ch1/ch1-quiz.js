@@ -2,6 +2,8 @@
 // בדיקה: 16/10/2026 = 46311 → 01/11/2026 = 46327. 18:00 = 0.75.
 // בדיקה: 01/09/2026 → 16/10/2026 = 45 ימים. 07/09/2026 = יום שני → WEEKDAY = 2.
 // בדיקה: 46327 = 01/11/2026 (16 יום אחרי 46311). HOUR(18:45) = 18.
+// 7.11: נוספו 6 שאלות לנושאים החדשים: 18:00 = 0.75 · (14:30-08:00)*24 = 6.5 · יישור בגיליון עברי · NOW · DATE+LEFT/MID/RIGHT · 20/12/2026 עד 05/01/2027 = 16.
+// כל שאלה רואה את הנתונים (הערכים כתובים בשאלה). לכל שאלה topic.
 
 export default {
   title: 'מבחן פרק: תאריכים',
@@ -38,10 +40,10 @@ export default {
       topic: 'WEEKDAY',
       prompt: '07/09/2026 הוא יום שני. מה תחזיר <span class="ltr">=WEEKDAY(A2)</span>, כשבתא A2 התאריך הזה?',
       options: [
-        { text: '1', correct: false },
-        { text: '"יום שני"', correct: false },
+        { text: '1', correct: false, hint: '1 הוא יום ראשון. 07/09/2026 הוא יום שני, כלומר 2.' },
+        { text: '"יום שני"', correct: false, hint: 'WEEKDAY מחזירה מספר. את שם היום נותנת TEXT עם "dddd".' },
         { text: '2', correct: true },
-        { text: '7', correct: false },
+        { text: '7', correct: false, hint: '7 הוא שבת. ראשון = 1, ולכן שני = 2.' },
       ],
       explanation: 'בברירת המחדל ראשון = 1, ולכן שני = 2. WEEKDAY מחזירה מספר. לשם היום משתמשים ב-TEXT עם "dddd".',
     },
@@ -50,34 +52,22 @@ export default {
       topic: 'DATE',
       prompt: 'השנה ב-A2, החודש ב-B2 והיום ב-C2. איזו נוסחה בונה מהם תאריך?',
       options: [
-        { text: '<span class="ltr">=DATE(C2,B2,A2)</span>', correct: false },
+        { text: '<span class="ltr">=DATE(C2,B2,A2)</span>', correct: false, hint: 'הסדר ב-DATE הוא שנה, חודש, יום, והשנה נמצאת ב-A2.' },
         { text: '<span class="ltr">=DATE(A2,B2,C2)</span>', correct: true },
-        { text: '<span class="ltr">=C2&"/"&B2&"/"&A2</span>', correct: false },
-        { text: '<span class="ltr">=A2+B2+C2</span>', correct: false },
+        { text: '<span class="ltr">=C2&"/"&B2&"/"&A2</span>', correct: false, hint: '& מחבר לטקסט שנראה כמו תאריך, אבל הוא לא מספר.' },
+        { text: '<span class="ltr">=A2+B2+C2</span>', correct: false, hint: 'חיבור נותן מספר אחד (2025+5+7), ולא תאריך.' },
       ],
       explanation: 'ב-DATE הסדר הוא שנה, חודש, יום. חיבור עם & נותן טקסט שנראה כמו תאריך, אבל הוא לא מספר.',
-    },
-    {
-      type: 'mc',
-      topic: 'TEXT וסדר החודשים',
-      prompt: 'בנתונים יש תאריכים מ-2025 ומ-2026. בנית עמודת חודש עם <span class="ltr">=TEXT(A2,"mmmm")</span>, ובפיבוט לפיה השורה "מרץ" מראה 40. מה נכון?',
-      options: [
-        { text: 'מרץ 2025 ומרץ 2026 התאחדו לשורה אחת', correct: true },
-        { text: 'השורה מראה רק את מרץ 2026, כי הפיבוט לוקח את השנה האחרונה בנתונים', correct: false, hint: 'לפיבוט אין "שנה אחרונה". "מרץ" היא אותה מילה בשתי השנים, ולכן הן מתחברות.' },
-        { text: 'הפיבוט לא רוענן אחרי שהוספו שורות חדשות של 2026 לנתונים', correct: false, hint: 'רענון לא משנה את זה. הבעיה היא ששם החודש הוא טקסט בלי שנה.' },
-        { text: 'יש בנתונים תאריך שבור בחודש מרץ, והוא נספר פעמיים', correct: false, hint: 'תאריך שבור היה נשאר בנפרד או מחזיר שגיאה. כאן שני חודשי מרץ תקינים התחברו.' },
-      ],
-      explanation: 'שם חודש הוא מילה, לא תאריך, ולכן אין בו שנה. אותה סיבה גורמת לכך שאי אפשר לקבץ אותו לרבעונים. הפתרון: לתת לפיבוט לקבץ את עמודת התאריך עצמה.',
     },
     {
       type: 'mc',
       topic: 'זיהוי תאריך שבור',
       prompt: 'על איזה מהערכים האלה <span class="ltr">=ISNUMBER(...)</span> תחזיר FALSE?',
       options: [
-        { text: '05/09/2026', correct: false },
+        { text: '05/09/2026', correct: false, hint: 'תאריך אמיתי הוא מספר, ולכן TRUE.' },
         { text: '05.09.2026', correct: true },
-        { text: '20260905', correct: false },
-        { text: '45,000', correct: false },
+        { text: '20260905', correct: false, hint: 'רצף ספרות הוא מספר (TRUE), גם אם הוא לא תאריך.' },
+        { text: '45,000', correct: false, hint: 'מספר עם פסיק אלפים הוא עדיין מספר, ולכן TRUE.' },
       ],
       explanation: 'עם נקודות זה טקסט. 20260905 ו-45,000 הם מספרים, ולכן TRUE — גם אם 20260905 לא באמת תאריך. ISNUMBER בודקת רק "מספר או לא".',
     },
@@ -104,6 +94,71 @@ export default {
         { text: 'מוחקים את כל השורה וכותבים בגיליון "תשובות" למה', correct: false, hint: 'שאר הנתונים בשורה תקינים וצריכים להישאר. מרוקנים רק את התא.' },
       ],
       explanation: 'ערך שלא יודעים מה הוא הופך לריק, לא ל-0 ולא לניחוש. שאר הנתונים בשורה נשארים, והכול מתועד.',
+    },
+
+    // ===== 7.11: שאלות על הנושאים החדשים של פרק 1 (שעה כשבר, יישור בגיליון עברי, NOW, תיקון עם DATE, ספירה ליום הולדת) =====
+    {
+      type: 'mc',
+      topic: 'שעה היא שבר של יממה',
+      prompt: 'בתא A2 כתובה השעה <span class="ltr">18:00</span>. איזה מספר שומר אקסל בתא?',
+      options: [
+        { text: '<span class="ltr">0.75</span>', correct: true },
+        { text: '<span class="ltr">18</span>', correct: false, hint: 'שעה היא חלק מיממה, לא מספר השעות. 18 הוא מספר השעות שעברו, אבל אקסל שומר 18 ÷ 24.' },
+        { text: '<span class="ltr">0.18</span>', correct: false, hint: 'צריך לחלק את 18 ב-24 שעות ביממה, לא ב-100.' },
+        { text: '<span class="ltr">1.8</span>', correct: false, hint: 'יממה שלמה היא 1, ו-18:00 הן שלושה רבעים ממנה: 18 ÷ 24 = 0.75.' },
+      ],
+      explanation: 'יממה = 1, ולכן שעה = שעות ÷ 24. 18 ÷ 24 = 0.75.',
+    },
+    {
+      type: 'numeric',
+      topic: 'הפרש שעות ×24',
+      prompt: 'ב-A2 השעה <span class="ltr">08:00</span> וב-B2 השעה <span class="ltr">14:30</span>. כמה שעות יחזיר <span class="ltr">=(B2-A2)*24</span>?',
+      answer: 6.5,
+      tolerance: 0.01,
+      explanation: 'החיסור נותן חלק מיממה (0.2708), וכפל ב-24 הופך אותו למספר שעות: 6.5.',
+    },
+    {
+      type: 'mc',
+      topic: 'יישור: תאריך אמיתי מול טקסט',
+      prompt: 'בגיליון בעברית: התא <span class="ltr">05/09/2026</span> נצמד לימין התא, והתא <span class="ltr">05.09.2026</span> נצמד לשמאל. מה נכון?',
+      options: [
+        { text: 'הראשון תאריך אמיתי, והשני טקסט', correct: true },
+        { text: 'השני תאריך אמיתי, והראשון טקסט', correct: false, hint: 'הפוך. מספר ותאריך אמיתי נצמדים לימין בגיליון עברי, וטקסט שנראה כמו תאריך נצמד לשמאל.' },
+        { text: 'שניהם תאריכים, והיישור לא אומר דבר', correct: false, hint: 'דווקא היישור הוא הסימן הראשון לתאריך שבור: מי שנצמד לצד הלא נכון הוא טקסט.' },
+        { text: 'שניהם טקסט, כי תאריכים תמיד נצמדים לשמאל', correct: false, hint: 'תאריך אמיתי הוא מספר, ומספר נצמד לימין בגיליון עברי.' },
+      ],
+      explanation: 'בגיליון עברי: מספר ותאריך אמיתי נצמדים לימין, וטקסט (כמו תאריך עם נקודות) לשמאל.',
+    },
+    {
+      type: 'mc',
+      topic: 'TODAY מול NOW',
+      prompt: 'איזו נוסחה מציגה את התאריך <b>והשעה</b> של עכשיו, ומתעדכנת בכל פתיחה של הקובץ?',
+      options: [
+        { text: '<span class="ltr">=NOW()</span>', correct: true },
+        { text: '<span class="ltr">=TODAY()</span>', correct: false, hint: 'TODAY נותנת תאריך בלבד, בלי שעה.' },
+        { text: '<span class="ltr">=DATE(2026,11,7)</span>', correct: false, hint: 'DATE בונה תאריך קבוע מהמספרים שכתבת. הוא לא מתעדכן, וגם אין בו שעה.' },
+        { text: '<span class="ltr">=TIME(0,0,0)</span>', correct: false, hint: 'TIME בונה שעה קבועה (כאן חצות). היא לא מתעדכנת, וגם אין בה תאריך.' },
+      ],
+      explanation: 'TODAY: תאריך. NOW: תאריך ושעה. שתיהן בלי ארגומנטים ומתעדכנות לבד.',
+    },
+    {
+      type: 'mc',
+      topic: 'תיקון רצף ספרות עם DATE',
+      prompt: 'בתא A2 הרצף <span class="ltr">20260905</span> (מספר, לא תאריך). איזו נוסחה הופכת אותו ל-05/09/2026?',
+      options: [
+        { text: '<span class="ltr">=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))</span>', correct: true },
+        { text: '<span class="ltr">=DATE(RIGHT(A2,2),MID(A2,5,2),LEFT(A2,4))</span>', correct: false, hint: 'הסדר הפוך. DATE מצפה לשנה, חודש, יום, והשנה נמצאת בהתחלה של הרצף.' },
+        { text: '<span class="ltr">=DATEVALUE(A2)</span>', correct: false, hint: 'DATEVALUE עובדת על טקסט שנראה כמו תאריך, ולא על רצף ספרות. כאן צריך לחתוך ולבנות.' },
+        { text: '<span class="ltr">=A2/10000</span>', correct: false, hint: 'חלוקה נותנת 2,026.0905, מספר עשרוני שהוא לא תאריך.' },
+      ],
+      explanation: 'חותכים שנה (LEFT), חודש (MID) ויום (RIGHT), ובונים עם DATE בסדר שנה, חודש, יום.',
+    },
+    {
+      type: 'numeric',
+      topic: 'ספירה ליום הולדת עם TODAY',
+      prompt: '<b>נניח שהיום הוא 20/12/2026</b>, ויום ההולדת ב-05/01. יום ההולדת של 2026 כבר עבר, ולכן הנוסחה היא <span class="ltr">=DATE(YEAR(TODAY())+1,1,5)-TODAY()</span>. כמה ימים נשארו?',
+      answer: 16,
+      explanation: 'מ-20/12/2026 עד 31/12 יש 11 ימים, ועוד 5 עד 05/01/2027: 16. בלי ה-+1 היה יוצא מינוס.',
     },
   ],
 };

@@ -107,7 +107,10 @@
 }
 .fn-sheet .fn-corner { width: 2.2em; }
 .fn-cell { border: 1px solid var(--fn-grid); padding: 5px 8px; text-align: right; white-space: nowrap; }
-.fn-cell.fn-num { text-align: left; direction: ltr; }
+/* 7.11: יישור כמו באקסל בעברית, נבדק בצילום. מספר ותאריך נצמדים לימין, טקסט לועזי לשמאל, TRUE/FALSE ושגיאה במרכז */
+.fn-cell.fn-num { text-align: right; direction: ltr; }
+.fn-cell.fn-latin { text-align: left; direction: ltr; }
+.fn-cell.fn-center { text-align: center; direction: ltr; }
 .fn-cell.fn-head { font-weight: 700; }
 .fn-cell.m-result { background: var(--fn-mark-result); outline: 2px solid var(--fn-mark-result-line); outline-offset: -2px; font-weight: 700; }
 .fn-cell.m-input { background: var(--fn-mark-input); }
@@ -280,3 +283,122 @@
 .pv-shake { animation: pv-shake 0.25s 2; }
 @media (prefers-reduced-motion: reduce) { .pv-shake { animation: none; } }
 @media (max-width: 480px) { .pv-demo-table { font-size: 0.88rem; } .pv-demo-table th, .pv-demo-table td { padding: 4px 6px; } }
+
+/* ===================================================================
+   7.11: עיצוב לומדת התאריכים, בהשראת המצגת "שליטה בזמן"
+   ירוק של גוגל שיטס (#188038), קוד ירוק מונוספייס, כרטיס "מספר גדול".
+   כל הצבעים כאן טוקנים. הווידג'טים: dt-widgets.js
+   =================================================================== */
+:root {
+  --dt-green: #188038;
+  --dt-green-dark: #0F6B2B;
+  --dt-green-bg: #E6F4EA;
+  --dt-green-line: #B7DEC2;
+  --dt-warn-bg: #FFF4E0;
+  --dt-warn-line: #E8A33D;
+  --color-primary: var(--dt-green);
+  --color-primary-dark: var(--dt-green-dark);
+  --chapter-1: var(--dt-green);
+}
+
+/* קוד: ירוק מונוספייס, כמו בשקפי המצגת */
+.dt-code, .dt-widget code, .dt-fn code {
+  font-family: var(--fn-mono);
+  color: var(--dt-green-dark);
+  background: var(--dt-green-bg);
+  border-radius: 6px;
+  padding: 1px 7px;
+  font-weight: 700;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* כרטיס "מספר גדול": תאריך ← מספר */
+.dt-arrow-card {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-4);
+  background: var(--dt-green-bg);
+  border: 2px solid var(--dt-green-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-3) 0;
+}
+.dt-arrow-card .dt-from { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+.dt-arrow-card .dt-arrow { font-size: 1.8rem; color: var(--dt-green); }
+.dt-arrow-card .dt-to { font-size: 2.4rem; font-weight: 800; color: var(--dt-green-dark); font-family: var(--fn-mono); }
+.dt-bignum { font-size: 2.4rem; font-weight: 800; color: var(--dt-green-dark); font-family: var(--fn-mono); }
+
+/* ימי הפונקציות: אימוג'י + שם, כמו בשקף 11 */
+.dt-fns { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-2); margin: var(--space-3) 0; }
+.dt-fn {
+  background: var(--card-bg); border: 2px solid var(--dt-green-line); border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3); display: flex; align-items: center; gap: var(--space-2);
+}
+.dt-fn .dt-fn-emoji { font-size: 1.5rem; }
+.dt-fn small { display: block; color: var(--text-muted); }
+
+/* שורת "🧮 עכשיו באקסל" */
+.dt-task {
+  background: var(--dt-warn-bg);
+  border: 2px solid var(--dt-warn-line);
+  border-inline-start: 8px solid var(--dt-warn-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.dt-task b:first-child { font-size: 1.1rem; }
+
+/* בלוקי רשימה קצרים */
+.dt-facts { list-style: none; padding: 0; margin: var(--space-3) 0; display: grid; gap: var(--space-2); }
+.dt-facts li { background: var(--card-bg); border: 1px solid var(--border); border-inline-start: 5px solid var(--dt-green); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+.dt-gif { max-width: 140px; float: inline-end; margin: 0 var(--space-3); border-radius: var(--radius-sm); }
+@media (max-width: 480px) { .dt-gif { max-width: 90px; } }
+
+/* ---------- ווידג'טים ---------- */
+.dt-widget {
+  background: var(--card-bg);
+  border: 2px solid var(--dt-green-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+.dt-widget-title { font-weight: 800; font-size: 1.1rem; color: var(--dt-green-dark); margin-bottom: var(--space-3); }
+.dt-axis-inputs { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.dt-field { display: flex; flex-direction: column; gap: var(--space-1); font-weight: 700; color: var(--text-muted); flex: 1; min-width: 160px; }
+.dt-field input {
+  font: inherit; font-size: 1.1rem; padding: 8px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  direction: ltr; text-align: left; background: var(--card-bg); color: var(--text);
+}
+.dt-field input:focus { outline: 3px solid var(--dt-green-line); border-color: var(--dt-green); }
+.dt-strip { display: flex; gap: var(--space-2); direction: ltr; overflow-x: auto; padding-bottom: var(--space-1); }
+.dt-strip-cell {
+  flex: 1; min-width: 92px; text-align: center; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: var(--space-2); background: var(--bg); display: flex; flex-direction: column; gap: 2px;
+}
+.dt-strip-cell.is-now { background: var(--dt-green); color: #fff; border-color: var(--dt-green-dark); }
+.dt-strip-num { font-weight: 800; font-family: var(--fn-mono); }
+.dt-strip-date { font-size: 0.85rem; opacity: 0.85; }
+.dt-presets { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; color: var(--text-muted); font-weight: 700; }
+.dt-presets button {
+  font: inherit; cursor: pointer; border: 2px solid var(--dt-green-line); background: var(--dt-green-bg); color: var(--dt-green-dark);
+  border-radius: var(--radius-full); padding: 4px 14px; font-weight: 700; direction: ltr;
+}
+.dt-presets button:hover { background: var(--dt-green-line); }
+.dt-warn { margin-top: var(--space-3); background: var(--dt-warn-bg); border: 2px solid var(--dt-warn-line); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+
+.dt-bar { height: 34px; background: var(--bg); border: 2px solid var(--dt-green-line); border-radius: var(--radius-full); overflow: hidden; direction: ltr; }
+.dt-bar-fill { height: 100%; background: linear-gradient(90deg, var(--dt-green-line), var(--dt-green)); width: 40%; transition: width var(--duration-fast); }
+.dt-bar-ticks { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-family: var(--fn-mono); margin: 2px 4px var(--space-2); }
+.dt-range { width: 100%; direction: ltr; accent-color: var(--dt-green); }
+.dt-note-small { color: var(--text-muted); font-size: 0.92rem; margin-top: var(--space-2); }
+
+.dt-calc { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: 0.98rem; }
+.dt-calc th, .dt-calc td { border: 1px solid var(--fn-grid); padding: 6px 10px; text-align: right; }
+.dt-calc th { background: var(--fn-grid-head); font-weight: 700; white-space: nowrap; }
+.dt-calc td.ltr { text-align: left; font-weight: 700; }
+.dt-calc tr.is-bad td { background: var(--danger-bg); color: var(--danger); }
+.dt-bday-result { border-radius: var(--radius-sm); padding: var(--space-3); line-height: 1.8; }
+.dt-bday-result.is-good { background: var(--dt-green-bg); border: 2px solid var(--dt-green-line); }
+.dt-bday-result.is-bad { background: var(--danger-bg); border: 2px solid var(--danger); }
+.dt-fix { margin-top: var(--space-2); }
+@media (max-width: 480px) { .dt-arrow-card .dt-to { font-size: 1.9rem; } .dt-arrow-card .dt-from { font-size: 1.2rem; } }

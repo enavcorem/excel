@@ -16,6 +16,7 @@ import { renderShot } from './shot.js';
 import { renderDownload } from './download.js';
 import { renderPivotDemo } from './pivot-demo.js';
 import { enlargeOperators } from './operators.js';
+import './dt-widgets.js'; // day-axis, day-bar, bday-count (נרשמים בתוך הקובץ)
 
 registerBlockRenderer('sheet', renderSheet);
 registerBlockRenderer('fn-card', renderFnCard);
