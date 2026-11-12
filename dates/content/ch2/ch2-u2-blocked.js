@@ -98,8 +98,8 @@ export default {
         type: 'mc',
         prompt: 'מה נועה שכחה?',
         options: [
-          { text: 'לרענן את הפיבוט', correct: true },
           { text: 'לבנות את הפיבוט מחדש מאפס', correct: false, hint: 'זה יעבוד, אבל זה ארוך. מספיק רענן.' },
+          { text: 'לרענן את הפיבוט', correct: true },
           { text: 'לשמור את הקובץ', correct: false, hint: 'שמירה לא מעדכנת את הפיבוט.' },
           { text: 'לקבץ גם לשנים', correct: false, hint: 'הקיבוץ עצמו נחסם. קודם הפיבוט צריך לראות את התאריך המתוקן.' },
         ],

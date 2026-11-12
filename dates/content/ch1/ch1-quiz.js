@@ -14,8 +14,8 @@ export default {
       topic: 'תאריך הוא מספר',
       prompt: 'אקסל שומר את 16/10/2026 כמספר 46,311. בתא בעיצוב "כללי" כתוב <span class="ltr">46327</span>. איזה תאריך זה?',
       options: [
-        { text: '<span class="ltr">01/11/2026</span>', correct: true },
         { text: '<span class="ltr">02/11/2026</span>', correct: false, hint: 'מ-16/10 עד 01/11 יש 16 ימים, ו-46,327 הוא בדיוק 16 אחרי 46,311. 02/11 היה 46,328.' },
+        { text: '<span class="ltr">01/11/2026</span>', correct: true },
         { text: '<span class="ltr">16/11/2026</span>', correct: false, hint: 'ההפרש הוא 16 ימים, לא 16 חודשים ולא חודש. מ-16/10 מוסיפים 16 ימים.' },
         { text: '<span class="ltr">27/03/2026</span>', correct: false, hint: 'המספר גדול מ-46,311, אז התאריך בא אחרי 16/10/2026, לא לפניו.' },
       ],
@@ -40,9 +40,9 @@ export default {
       topic: 'WEEKDAY',
       prompt: '07/09/2026 הוא יום שני. מה תחזיר <span class="ltr">=WEEKDAY(A2)</span>, כשבתא A2 התאריך הזה?',
       options: [
+        { text: '2', correct: true },
         { text: '1', correct: false, hint: '1 הוא יום ראשון. 07/09/2026 הוא יום שני, כלומר 2.' },
         { text: '"יום שני"', correct: false, hint: 'WEEKDAY מחזירה מספר. את שם היום נותנת TEXT עם "dddd".' },
-        { text: '2', correct: true },
         { text: '7', correct: false, hint: '7 הוא שבת. ראשון = 1, ולכן שני = 2.' },
       ],
       explanation: 'בברירת המחדל ראשון = 1, ולכן שני = 2. WEEKDAY מחזירה מספר. לשם היום משתמשים ב-TEXT עם "dddd".',
@@ -53,8 +53,8 @@ export default {
       prompt: 'השנה ב-A2, החודש ב-B2 והיום ב-C2. איזו נוסחה בונה מהם תאריך?',
       options: [
         { text: '<span class="ltr">=DATE(C2,B2,A2)</span>', correct: false, hint: 'הסדר ב-DATE הוא שנה, חודש, יום, והשנה נמצאת ב-A2.' },
-        { text: '<span class="ltr">=DATE(A2,B2,C2)</span>', correct: true },
         { text: '<span class="ltr">=C2&"/"&B2&"/"&A2</span>', correct: false, hint: '& מחבר לטקסט שנראה כמו תאריך, אבל הוא לא מספר.' },
+        { text: '<span class="ltr">=DATE(A2,B2,C2)</span>', correct: true },
         { text: '<span class="ltr">=A2+B2+C2</span>', correct: false, hint: 'חיבור נותן מספר אחד (2025+5+7), ולא תאריך.' },
       ],
       explanation: 'ב-DATE הסדר הוא שנה, חודש, יום. חיבור עם & נותן טקסט שנראה כמו תאריך, אבל הוא לא מספר.',
@@ -77,8 +77,8 @@ export default {
       prompt: 'קובץ הגיע ממערכת אמריקאית (חודש/יום). בשורה אחת כתוב 04/07/2026, ואקסל אצלנו קרא אותו כתאריך תקין. מה הבעיה?',
       options: [
         { text: 'אין בעיה: ISNUMBER תחזיר TRUE, ולכן התאריך נכון', correct: false, hint: 'ISNUMBER בודקת רק שזה מספר, לא שהוא נכון. כאן התאריך תקין אבל לא זה שהתכוונו אליו.' },
-        { text: 'אקסל קרא 4 ביולי במקום 7 באפריל', correct: true },
         { text: 'התא נשאר טקסט, ולכן ISNUMBER תחזיר FALSE', correct: false, hint: 'אקסל קרא את התא כתאריך, אז הוא מספר ו-ISNUMBER תחזיר TRUE.' },
+        { text: 'אקסל קרא 4 ביולי במקום 7 באפריל', correct: true },
         { text: 'אקסל קרא 7 באפריל, אבל התכוונו ל-4 ביולי', correct: false, hint: 'הכיוון הפוך. במערכת אמריקאית 04/07 הוא חודש 04 (אפריל) ויום 07, ואקסל אצלנו קרא יום 04 וחודש 07.' },
       ],
       explanation: 'זה המוקש השקט: תאריך תקין, אבל לא נכון. אין שגיאה ו-ISNUMBER מחזירה TRUE. רק מי שיודעת מאיפה הקובץ הגיע תחשוד.',
@@ -90,8 +90,8 @@ export default {
       options: [
         { text: 'כותבים 28/02/2026, היום האחרון בפברואר, צובעים בצהוב וכותבים "הסבר"', correct: false, hint: 'זה ניחוש. אי אפשר לדעת שהתכוונו לפברואר, ולכן לא ממציאים תאריך.' },
         { text: 'כותבים 0 בתא, צובעים בצהוב וכותבים בעמודת "הסבר" שהתאריך לא ידוע', correct: false, hint: '0 הוא מספר שאקסל קורא כתאריך (ינואר 1900) וישבש חישובים. תא לא ידוע נשאר ריק.' },
-        { text: 'מרוקנים את התא, צובעים בצהוב וכותבים "הסבר"', correct: true },
         { text: 'מוחקים את כל השורה וכותבים בגיליון "תשובות" למה', correct: false, hint: 'שאר הנתונים בשורה תקינים וצריכים להישאר. מרוקנים רק את התא.' },
+        { text: 'מרוקנים את התא, צובעים בצהוב וכותבים "הסבר"', correct: true },
       ],
       explanation: 'ערך שלא יודעים מה הוא הופך לריק, לא ל-0 ולא לניחוש. שאר הנתונים בשורה נשארים, והכול מתועד.',
     },
@@ -122,8 +122,8 @@ export default {
       topic: 'יישור: תאריך אמיתי מול טקסט',
       prompt: 'בגיליון בעברית: התא <span class="ltr">05/09/2026</span> נצמד לימין התא, והתא <span class="ltr">05.09.2026</span> נצמד לשמאל. מה נכון?',
       options: [
-        { text: 'הראשון תאריך אמיתי, והשני טקסט', correct: true },
         { text: 'השני תאריך אמיתי, והראשון טקסט', correct: false, hint: 'הפוך. מספר ותאריך אמיתי נצמדים לימין בגיליון עברי, וטקסט שנראה כמו תאריך נצמד לשמאל.' },
+        { text: 'הראשון תאריך אמיתי, והשני טקסט', correct: true },
         { text: 'שניהם תאריכים, והיישור לא אומר דבר', correct: false, hint: 'דווקא היישור הוא הסימן הראשון לתאריך שבור: מי שנצמד לצד הלא נכון הוא טקסט.' },
         { text: 'שניהם טקסט, כי תאריכים תמיד נצמדים לשמאל', correct: false, hint: 'תאריך אמיתי הוא מספר, ומספר נצמד לימין בגיליון עברי.' },
       ],
@@ -134,10 +134,10 @@ export default {
       topic: 'TODAY מול NOW',
       prompt: 'איזו נוסחה מציגה את התאריך <b>והשעה</b> של עכשיו, ומתעדכנת בכל פתיחה של הקובץ?',
       options: [
-        { text: '<span class="ltr">=NOW()</span>', correct: true },
         { text: '<span class="ltr">=TODAY()</span>', correct: false, hint: 'TODAY נותנת תאריך בלבד, בלי שעה.' },
         { text: '<span class="ltr">=DATE(2026,11,7)</span>', correct: false, hint: 'DATE בונה תאריך קבוע מהמספרים שכתבת. הוא לא מתעדכן, וגם אין בו שעה.' },
         { text: '<span class="ltr">=TIME(0,0,0)</span>', correct: false, hint: 'TIME בונה שעה קבועה (כאן חצות). היא לא מתעדכנת, וגם אין בה תאריך.' },
+        { text: '<span class="ltr">=NOW()</span>', correct: true },
       ],
       explanation: 'TODAY: תאריך. NOW: תאריך ושעה. שתיהן בלי ארגומנטים ומתעדכנות לבד.',
     },
@@ -146,9 +146,9 @@ export default {
       topic: 'תיקון רצף ספרות עם DATE',
       prompt: 'בתא A2 הרצף <span class="ltr">20260905</span> (מספר, לא תאריך). איזו נוסחה הופכת אותו ל-05/09/2026?',
       options: [
-        { text: '<span class="ltr">=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))</span>', correct: true },
         { text: '<span class="ltr">=DATE(RIGHT(A2,2),MID(A2,5,2),LEFT(A2,4))</span>', correct: false, hint: 'הסדר הפוך. DATE מצפה לשנה, חודש, יום, והשנה נמצאת בהתחלה של הרצף.' },
         { text: '<span class="ltr">=DATEVALUE(A2)</span>', correct: false, hint: 'DATEVALUE עובדת על טקסט שנראה כמו תאריך, ולא על רצף ספרות. כאן צריך לחתוך ולבנות.' },
+        { text: '<span class="ltr">=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))</span>', correct: true },
         { text: '<span class="ltr">=A2/10000</span>', correct: false, hint: 'חלוקה נותנת 2,026.0905, מספר עשרוני שהוא לא תאריך.' },
       ],
       explanation: 'חותכים שנה (LEFT), חודש (MID) ויום (RIGHT), ובונים עם DATE בסדר שנה, חודש, יום.',

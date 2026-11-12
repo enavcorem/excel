@@ -56,8 +56,8 @@ export default {
         type: 'mc',
         prompt: 'מי נכנסה לחדר הספורט ביום שישי, אחרי 12:00, במרץ?',
         options: [
-          { text: 'כרמל', correct: true },
           { text: 'יעל', correct: false, hint: 'יעל נכנסה ביום שישי במרץ, אבל ב-11:50. HOUR מחזירה 11, וזה לפני 12.' },
+          { text: 'כרמל', correct: true },
           { text: 'גיל', correct: false, hint: 'גיל נכנסה ביום שישי ב-14:00, אבל ב-27 בפברואר. MONTH מחזירה 2.' },
           { text: 'ורד', correct: false, hint: 'ורד נכנסה ביום שישי ב-13:00, אבל ב-3 באפריל. MONTH מחזירה 4.' },
         ],

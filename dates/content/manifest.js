@@ -24,9 +24,15 @@ export const COURSE = {
   // מצב כיתה, כמו ב-XLOOKUP: ?class=1 על מחשב המורה פותח את כל היחידות
   // ומסתיר XP, לשיעור פרונטלי בגבעול. ?class=0 מכבה. הקישור לתלמידות רגיל.
   classMode: true,
+
+  // 12.11: בלי נעילה לפי הסדר, לשתי הקבוצות. האקסל המלווה מוביל את העבודה,
+  // והחובה לעבור כל יחידה לפי הסדר ייאשה בכיתה. שני הפרקים פתוחים מההתחלה
+  // (openChapters), וכל השיעורים והתחנות בתוך פרק פתוחים יחד (unordered).
+  // מבחן פרק עדיין נפתח רק אחרי השיעורים והתחנות של אותו פרק (כך המנוע עובד).
+  openChapters: true,
 };
 
-// אין אתגרי פטור (כמו ב-XLOOKUP). הנעילה לפי הסדר.
+// אין אתגרי פטור (כמו ב-XLOOKUP). מ-12.11 בלי נעילה לפי הסדר (ראו openChapters למעלה).
 // התחנות הן יחידות lab בתוך הפרקים, עם כפתור הורדה לקובץ התרגול (נבנה ב-excel/_xlsx).
 export const CHAPTERS = [
   {
@@ -35,6 +41,7 @@ export const CHAPTERS = [
     title: 'תאריכים',
     icon: '📅',
     colorVar: 'chapter-1',
+    unordered: true,
     units: [
       // 7.11: פרק 1 נבנה מחדש על המצגת "שליטה בזמן" (הסבר ← משימה בגיליון ← שאלה). מזהים חדשים: אף תלמידה עוד לא עבדה עליו.
       { id: 'dt-ch1-u0', title: 'למה תאריכים? והאקסל שלנו', type: 'lesson', icon: '🗺️', estMinutes: 4, modulePath: 'ch1/ch1-u0-why.js' },
@@ -56,6 +63,7 @@ export const CHAPTERS = [
     title: 'תאריכים בפיבוט',
     icon: '🗓️',
     colorVar: 'chapter-2',
+    unordered: true,
     units: [
       { id: 'dt-ch2-u1', title: 'קיבוץ לשנים, רבעונים וחודשים', type: 'lesson', icon: '📦', estMinutes: 7, modulePath: 'ch2/ch2-u1-grouping.js' },
       { id: 'dt-ch2-u2', title: 'תאריך אחד שבור חוסם הכול', type: 'lesson', icon: '🚧', estMinutes: 5, modulePath: 'ch2/ch2-u2-blocked.js' },

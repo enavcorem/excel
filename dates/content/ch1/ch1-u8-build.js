@@ -40,9 +40,9 @@ export default {
         type: 'mc',
         prompt: 'בטבלה הראשונה: A2 = 2025, B2 = 3 ו-C2 = 7. מה התאריך שתחזיר =DATE(A2,B2,C2)?',
         options: [
-          { text: '7 במרץ 2025, כלומר 07/03/2025', correct: true },
           { text: '3 ביולי 2025, כלומר 03/07/2025', correct: false, hint: 'הסדר ב-DATE הוא שנה, חודש, יום. 3 הוא החודש (מרץ), ו-7 הוא היום.' },
           { text: '2025 במרץ 7', correct: false, hint: 'השנה היא הארגומנט הראשון והיא נכנסת לתאריך כשנה, ולא כיום.' },
+          { text: '7 במרץ 2025, כלומר 07/03/2025', correct: true },
           { text: 'שגיאה, כי המספרים נמצאים בתאים נפרדים', correct: false, hint: 'לזה בדיוק DATE קיימת: לקחת מספרים מתאים נפרדים ולבנות מהם תאריך.' },
         ],
       },
@@ -82,10 +82,10 @@ export default {
         type: 'mc',
         prompt: 'בתא A2 הרצף 20251231. איזו נוסחה בונה ממנו תאריך?',
         options: [
-          { text: '=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))', correct: true },
           { text: '=DATE(RIGHT(A2,2),MID(A2,5,2),LEFT(A2,4))', correct: false, hint: 'הסדר הפוך. DATE מצפה לשנה, חודש, יום, ולכן השנה (LEFT) היא הראשונה.' },
           { text: '=DATE(LEFT(A2,2),MID(A2,3,2),RIGHT(A2,4))', correct: false, hint: 'השנה היא 4 ספרות מההתחלה, לא 2. ככה היא תיחתך לא נכון.' },
           { text: '=DATE(A2)', correct: false, hint: 'DATE צריכה שלושה ארגומנטים נפרדים. את הרצף צריך קודם לחתוך.' },
+          { text: '=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))', correct: true },
         ],
       },
     },
