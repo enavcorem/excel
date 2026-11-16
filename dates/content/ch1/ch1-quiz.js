@@ -42,10 +42,10 @@ export default {
       options: [
         { text: '2', correct: true },
         { text: '1', correct: false, hint: '1 הוא יום ראשון. 07/09/2026 הוא יום שני, כלומר 2.' },
-        { text: '"יום שני"', correct: false, hint: 'WEEKDAY מחזירה מספר. את שם היום נותנת TEXT עם "dddd".' },
+        { text: '"יום שני"', correct: false, hint: 'WEEKDAY מחזירה מספר. את שם היום נותנת TEXT עם "dddd" (העשרה ⭐).' },
         { text: '7', correct: false, hint: '7 הוא שבת. ראשון = 1, ולכן שני = 2.' },
       ],
-      explanation: 'בברירת המחדל ראשון = 1, ולכן שני = 2. WEEKDAY מחזירה מספר. לשם היום משתמשים ב-TEXT עם "dddd".',
+      explanation: 'בברירת המחדל ראשון = 1, ולכן שני = 2. WEEKDAY מחזירה מספר. לשם היום משתמשים ב-TEXT עם "dddd" (העשרה ⭐).',
     },
     {
       type: 'mc',
@@ -136,7 +136,7 @@ export default {
       options: [
         { text: '<span class="ltr">=TODAY()</span>', correct: false, hint: 'TODAY נותנת תאריך בלבד, בלי שעה.' },
         { text: '<span class="ltr">=DATE(2026,11,7)</span>', correct: false, hint: 'DATE בונה תאריך קבוע מהמספרים שכתבת. הוא לא מתעדכן, וגם אין בו שעה.' },
-        { text: '<span class="ltr">=TIME(0,0,0)</span>', correct: false, hint: 'TIME בונה שעה קבועה (כאן חצות). היא לא מתעדכנת, וגם אין בה תאריך.' },
+        { text: '<span class="ltr">=HOUR(NOW())</span>', correct: false, hint: 'HOUR מחזירה רק את השעה כמספר (למשל 14), בלי התאריך ובלי הדקות.' },
         { text: '<span class="ltr">=NOW()</span>', correct: true },
       ],
       explanation: 'TODAY: תאריך. NOW: תאריך ושעה. שתיהן בלי ארגומנטים ומתעדכנות לבד.',
@@ -147,7 +147,7 @@ export default {
       prompt: 'בתא A2 הרצף <span class="ltr">20260905</span> (מספר, לא תאריך). איזו נוסחה הופכת אותו ל-05/09/2026?',
       options: [
         { text: '<span class="ltr">=DATE(RIGHT(A2,2),MID(A2,5,2),LEFT(A2,4))</span>', correct: false, hint: 'הסדר הפוך. DATE מצפה לשנה, חודש, יום, והשנה נמצאת בהתחלה של הרצף.' },
-        { text: '<span class="ltr">=DATEVALUE(A2)</span>', correct: false, hint: 'DATEVALUE עובדת על טקסט שנראה כמו תאריך, ולא על רצף ספרות. כאן צריך לחתוך ולבנות.' },
+        { text: '<span class="ltr">=LEFT(A2,4)&"/"&MID(A2,5,2)&"/"&RIGHT(A2,2)</span>', correct: false, hint: 'החיבור עם & נותן טקסט שנראה כמו תאריך, אבל הוא לא מספר, ולכן הוא תאריך שבור. כדי לקבל תאריך אמיתי, את שלושת החלקים מכניסים לתוך DATE.' },
         { text: '<span class="ltr">=DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))</span>', correct: true },
         { text: '<span class="ltr">=A2/10000</span>', correct: false, hint: 'חלוקה נותנת 2,026.0905, מספר עשרוני שהוא לא תאריך.' },
       ],

@@ -50,9 +50,12 @@ export const CHAPTERS = [
       { id: 'dt-ch1-u3', title: 'להקליד נכון ולעצב', type: 'lesson', icon: '⌨️', estMinutes: 7, modulePath: 'ch1/ch1-u3-entry.js' },
       { id: 'dt-ch1-u4', title: 'תאריך שבור, ותאריכים לפני 1900', type: 'lesson', icon: '🩹', estMinutes: 9, modulePath: 'ch1/ch1-u4-broken.js' },
       { id: 'dt-ch1-u5', title: 'לפרק תאריך לחלקים', type: 'lesson', icon: '✂️', estMinutes: 7, modulePath: 'ch1/ch1-u5-parts.js' },
-      { id: 'dt-ch1-u6', title: 'שם החודש במילים', type: 'lesson', icon: '🔤', estMinutes: 6, modulePath: 'ch1/ch1-u6-text.js' },
+      // 16.11: TEXT לא בסילבוס ← העשרה ⭐ (bonus, לא חוסם את מבחן הפרק). ה-id לא השתנה, ההתקדמות של גבעול נשמרת.
+      { id: 'dt-ch1-u6', title: '⭐ העשרה: שם החודש במילים', type: 'bonus', icon: '🔤', estMinutes: 6, modulePath: 'ch1/ch1-u6-text.js' },
       { id: 'dt-ch1-u7', title: 'היום ועכשיו: ספירה ליום הולדת', type: 'lesson', icon: '🎂', estMinutes: 8, modulePath: 'ch1/ch1-u7-today.js' },
       { id: 'dt-ch1-u8', title: 'לבנות ולתקן תאריך', type: 'lesson', icon: '🧱', estMinutes: 8, modulePath: 'ch1/ch1-u8-build.js' },
+      // 16.11: TIME, DATEVALUE ו-TIMEVALUE יצאו מיחידה 8 (לא בסילבוס). גיליון 8, שורות ג–ו.
+      { id: 'dt-ch1-u8x', title: '⭐ העשרה: TIME ו-DATEVALUE', type: 'bonus', icon: '🔄', estMinutes: 7, modulePath: 'ch1/ch1-u8x-extra.js' },
       { id: 'dt-ch1-lab', title: 'תחנה 1: בלשית הזמן', type: 'lab', icon: '🕵️', estMinutes: 15, modulePath: 'ch1/ch1-lab-detective.js' },
       { id: 'dt-ch1-quiz', title: 'מבחן פרק: תאריכים', type: 'quiz', icon: '📝', estMinutes: 12, modulePath: 'ch1/ch1-quiz.js' },
     ],
